@@ -1,1 +1,682 @@
-Coming Soon...
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SPIn-NeRF.">
+  <meta name="keywords" content="NeRF, Inpainting, Segmentation, Perceptual Loss, LPIPS, Multli-View Inpainting, View Consistency, 3D Reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPIn-NeRF</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title text-muted">
+            <span class="text-primary">߷</span>
+            <span class="text-dark">SPIn-NeRF</span>: Multiview <span class="text-dark">S</span>egmentation and <span class="text-dark">P</span>erceptual <span class="text-dark">In</span>painting with <span class="text-dark">Ne</span>ural <span class="text-dark">R</span>adiance <span class="text-dark">F</span>ields
+          </h1>
+
+          <!-- <p class="is-size-5 text-center">
+            arXiv
+          </p> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=z8GwuTgAAAAJ&hl=en">Ashkan Mirzaei</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.ca/citations?user=mV9zdJMAAAAJ&hl=en">Tristan Aumentado-Armstrong</a><sup>1,2,4</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=3Br8x_gAAAAJ&hl=en&oi=ao">Konstantinos G. Derpanis</a><sup>1,3,4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=KtSR8_0AAAAJ&hl=en">Jonathan Kelly</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.ca/citations?user=x2wyjkAAAAAJ&hl=en">Marcus A. Brubaker</a><sup>1,3,4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=Nuw1Y4oAAAAJ&hl=en">Igor Gilitschenski</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=7EFMKWUAAAAJ&hl=en">Alex Levinshtein</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Samsung AI Centre Toronto,</span>
+            <span class="author-block"><sup>2</sup>University of Toronto,</span>
+            <span class="author-block"><sup>3</sup>York University,</span>
+            <span class="author-block"><sup>4</sup>Vector Institute for AI</span>
+            <!-- </br>
+            <span class="author-block"><sup>*</sup>Denotes equal contribution</span> -->
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (High-Quality)</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://youtu.be/WEgJf1WC5SQ"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="code link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- <span class="link-block">
+                <a href="dataset link" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span> -->
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <img src="data/images/overview.png" style="float: right; margin-left:20px; margin-bottom: 10px" width="100%;" />
+          <p class="content has-text-justified">
+            Neural Radiance Fields (NeRFs) have emerged as a popular approach for novel view synthesis. While NeRFs are quickly being adapted for a wider set of applications, intuitively editing NeRF scenes is still an open challenge. One important editing task is the removal of unwanted objects from a 3D scene, such that the replaced region is visually plausible and consistent with its context. We refer to this task as 3D inpainting. In 3D, solutions must be both consistent across multiple views and geometrically valid. In this paper, we  propose a novel 3D inpainting method that addresses these challenges. Given a small set of posed images and sparse annotations in a single input image, our framework first rapidly obtains a 3D segmentation mask for a target object. Using the mask, a perceptual optimization-based approach is then introduced that leverages learned 2D image inpainters, distilling their information into 3D space, while ensuring view consistency. We also address the lack of a diverse benchmark for evaluating 3D scene inpainting methods by introducing a dataset comprised of challenging real-world scenes. In particular, our dataset contains views of the same scene with and without a target object, enabling more principled benchmarking of the 3D inpainting task. We first demonstrate the superiority of our approach on multiview segmentation, comparing to NeRF-based methods and 2D segmentation approaches. We then evaluate on the task of 3D inpainting, establishing state-of-the-art performance against other NeRF manipulation algorithms, as well as a strong 2D image inpainter baseline.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/WEgJf1WC5SQ"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Inpainting Pipeline</h2>
+        <div class="content">
+          <img src="data/images/overview2.png" width="100%"/>
+        </div>
+        </br>
+        <div class="content has-text-justified">
+          <p>
+            An overview of our proposed inpainting pipeline. Using the posed input images and their corresponding masks (upper and lower left insets), we obtain (i) an initial NeRF with the target object present and (ii) the set of inpainted input RGB images with the target object removed (but with view inconsistencies). The initial NeRF (i) is used to compute depth values, which we inpaint to obtain depth images as geometric priors (upper-right inset). The inpainted RGB images (ii), which act as appearance priors, are used in conjunction with the depth priors, to fit a 3D consistent NeRF to the inpainted scene (lower-right inset).
+          </p>
+          </br>
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <!-- <h2 class="title">Qualitative Results</h2> -->
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item rounded-0 border-0 item-sink">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/sink1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/sink2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/sink3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item rounded-0 border-0 item-piano">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/piano1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/piano2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/piano3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item rounded-0 border-0 item-light">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/light1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/light2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/light3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item rounded-0 border-0 item-stove">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/stove1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/stove2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/stove3.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <!-- <div class="item rounded-0 border-0 item-bucket">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/bucket1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/bucket2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/bucket3.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <div class="item rounded-0 border-0 item-table">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/table1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/table2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/table3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+       <!--  <div class="item rounded-0 border-0 item-chess">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/chess1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/chess2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/chess3.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <div class="item rounded-0 border-0 item-chess2">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/chess1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/chess4.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/chess5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item rounded-0 border-0 item-hat">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/hat1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/hat2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop height="100%" preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/hat3.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <div class="item rounded-0 border-0 item-rock">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/rock1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/rock2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/rock3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item rounded-0 border-0 item-statue">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/statue1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/statue2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/statue3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item rounded-0 border-0 item-statue2">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/statue1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/statue4.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/statue5.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <div class="item rounded-0 border-0 item-stairs">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/stairs1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/stairs2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/stairs3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item rounded-0 border-0 item-dumbbell">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/dumbbell1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/dumbbell2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/dumbbell3.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <div class="item rounded-0 border-0 item-leaves">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/leaves1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/leaves2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/leaves3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item rounded-0 border-0 item-fortress">
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/fortress1.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/fortress2.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+            <source src="data/videos/fortress3.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<br/>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop has-text-centered shadow-sm">
+    <br/>
+    <h2 class="title">Sample Scene from Our Dataset</h2>
+      <div class="row justify-content-around">
+        <div class="col-6">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/pot1.mp4"
+                    type="video/mp4">
+          </video>
+          <h5 class="subtitle">Original Scene</h5>
+        </div>
+        <div class="col-6">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/pot2.mp4"
+                    type="video/mp4">
+          </video>
+          <h5 class="subtitle">Our Inpainting Result</h5>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<br/>
+
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Inpainting Stages</h2>
+      <div class="row d-flex justify-content-between">
+        <div class=col-3>
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/interactive_seg1.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/interactive_seg2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/interactive_seg3.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <h2 class="subtitle has-text-centered">1) Interactive Segmentation</h2>
+        </div>
+
+        <div class="col-1 align-self-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+        </div>
+
+        <div class="col-3">
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/table3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/statue5.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/statue3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <h2 class="subtitle has-text-centered">2) Multiview Segmentation</h2>
+        </div>
+
+        <div class="col-1 align-self-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+        </div>
+
+        <div class="col-3">
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/table2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/statue4.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="row">
+            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">
+              <source src="data/videos/statue2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <h2 class="subtitle has-text-centered">3) Multiview Inpainting</h2>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<br/>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop has-text-centered shadow-sm">
+    <br/>
+    <h2 class="title">Comparison to the Concurrent Work</h2>
+      <div class="row">
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/hat1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/hat_nerfin_all.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/hat_nerfin_single.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/hat2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/fortress1.mp4"
+                    type="video/mp4">
+          </video>
+          <h5 class="subtitle">NeRF</h5>
+        </div>
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/fortress_nerfin_all.mp4"
+                    type="video/mp4">
+          </video>
+          <h5 class="subtitle">NeRF-In</h5>
+        </div>
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/fortress_nerfin_single.mp4"
+                    type="video/mp4">
+          </video>
+          <h5 class="subtitle">NeRF-In (Single)</h5>
+        </div>
+        <div class="col-3">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/videos/fortress2.mp4"
+                    type="video/mp4">
+          </video>
+          <h5 class="subtitle">Ours</h5>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+
+
+
+<br/>
+
+
+<section class="hero teaser">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="column is-full">
+        <h2 class="title has-text-centered">On the Importance of the Perceptual Loss</h2>
+          <div class="row d-flex justify-content-around">
+            <div class="content has-text-justified">
+              <p class="content has-text-justified">Here, we demonstrate the importance of using the perceputal loss instead of direct MSE optimization on a 2D toy example. Consider the following RGB image and the synthetic square mask. Based on them, we create the 16 different possible 2D inapintings. Note that inpainting is an ill-posed problem and all of the following are plausible answers for the task of inpainting the image:</p>
+            </div>
+            <div class="col-4 p-1">
+              <img src="data/toy_example/pattern.png">
+              <h2 class="subtitle has-text-centered">Sample Image</h2>
+            </div>
+            <div class="col-4 p-1">
+              <img src="data/toy_example/masked.png">
+              <h2 class="subtitle has-text-centered">Masked Image</h2>
+            </div>
+            <div class="col-4 p-1">
+              <img src="data/toy_example/grid.png">
+              <h2 class="subtitle has-text-centered">16 Different Inpaintings</h2>
+            </div>
+            <div class="content has-text-justified">
+              <p class="content">Now, we start optimizing an image based on these 16 outputs. In the first attempt, the Mean Squared Error (MSE) loss is used, while in the alternative approach, we use a perceptual loss as proposed in the paper for the masked region:</p>
+            </div>
+            <div class="row justify-content-around">
+              <div class="col-8">
+                <video poster="" muted controls preload="metadata" class="w-auto" style="">
+                <source src="data/toy_example/toy.mp4"
+                        type="video/mp4">
+                </video>
+              </div>
+            </div>
+            <div class="content has-text-justified">
+              <p class="content">As evident in the results, even after these few steps of fitting the output image on the 16 input inpaintings, the perceptual loss has led to a more detailed and accurate texture. In contrast, the MSE loss has difficulties when facing inconsistent inputs, and has converged to a blurry inpainted region. This blurry area is close to the average of all of the inputs. </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{spinnerf,
+      title={SPIn-NeRF: Multiview Segmentation and Perceptual Inpainting with Neural Radiance Fields}, 
+      author={Ashkan Mirzaei and Tristan Aumentado-Armstrong and Konstantinos G. Derpanis and Jonathan Kelly and Marcus A. Brubaker and Igor Gilitschenski and Alex Levinshtein},
+      year={2022},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a href="https://github.com/nesf3d/nesf3d.github.io">NeSF</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
